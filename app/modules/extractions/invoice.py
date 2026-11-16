@@ -1,13 +1,19 @@
 """The invoice schema: what an extraction must produce, and the rules it must satisfy."""
 
 from datetime import date
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 from typing import Any, Self
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 # Amounts are compared to the cent: 0.01 absorbs rounding in "qty x price" lines.
 TOLERANCE = Decimal("0.01")
+CENT = Decimal("0.01")
+
+
+def to_cents(value: Decimal | None) -> Decimal | None:
+    """Money is stored with exactly two decimals, so 85, 85.0 and 85.00 are all "85.00"."""
+    return value.quantize(CENT, rounding=ROUND_HALF_UP) if value is not None else None
 
 
 class LineItem(BaseModel):
@@ -17,6 +23,11 @@ class LineItem(BaseModel):
     quantity: Decimal = Field(gt=0)
     unit_price: Decimal = Field(ge=0)
     amount: Decimal = Field(ge=0)
+
+    @field_validator("amount")
+    @classmethod
+    def amount_to_cents(cls, value: Decimal) -> Decimal | None:
+        return to_cents(value)
 
     @model_validator(mode="after")
     def amount_matches(self) -> Self:
@@ -44,6 +55,11 @@ class Invoice(BaseModel):
     tax: Decimal | None = Field(default=None, ge=0)
     total: Decimal = Field(ge=0)
     line_items: list[LineItem] = Field(default_factory=list)
+
+    @field_validator("subtotal", "tax", "total")
+    @classmethod
+    def money_to_cents(cls, value: Decimal | None) -> Decimal | None:
+        return to_cents(value)
 
     @field_validator("currency", mode="before")
     @classmethod
