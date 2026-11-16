@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: extraction
+    ports:
+      - '${POSTGRES_HOST_PORT:-5445}:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U app -d extraction']
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # One-off job: applies migrations, then exits.
+  migrate:
+    build: .
+    command: ['alembic', 'upgrade', 'head']
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:app@postgres:5432/extraction
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:app@postgres:5432/extraction
+      SECRETS_SOURCE: local
+      LOCAL_STORAGE_DIR: /app/data/uploads
+    ports:
+      - '${API_HOST_PORT:-8000}:8000'
+    volumes:
+      - uploads:/app/data/uploads
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
+  uploads:
