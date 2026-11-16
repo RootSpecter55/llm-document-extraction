@@ -1,0 +1,1 @@
+{"invoice_number": "KS-88", "invoice_date": "2026-06-01", "due_date": "2026-07-01", "vendor_name": "Kestrel Studio", "vendor_tax_id": null, "customer_name": "Northwind Labs", "currency": "EUR", "subtotal": null, "tax": null, "total": "800.00", "line_items": [{"description": "Logo redesign", "quantity": "1", "unit_price": "800.00", "amount": "800.00"}]}

@@ -1,0 +1,16 @@
+INVOICE
+Invoice Number: INV-2026-0042
+Invoice Date: 2026-01-20
+Due Date: 2026-02-19
+From: Brightline Stationery Ltd
+Tax ID: GB987654321
+Bill To: Northwind Labs
+Currency: GBP
+
+Description | Qty | Unit Price | Amount
+Notebooks (pack of 5) | 4 | 12.50 | 50.00
+Gel pens (box) | 3 | 8.20 | 24.60
+
+Subtotal: 74.60
+Tax: 14.92
+Total: 89.52

@@ -1,0 +1,12 @@
+Pinecrest Catering Co.
+Invoice Number: PC-0319
+Invoice Date: 2026-04-11
+Billed to: Northwind Labs
+Currency: USD
+
+3 x Lunch platter @ 45.00 = 135.00
+20 x Coffee (cup) @ 2.50 = 50.00
+
+Subtotal: 185.00
+Sales tax: 14.80
+Total: 199.80

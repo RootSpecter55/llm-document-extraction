@@ -1,0 +1,11 @@
+Invoice Number: KS-88
+Invoice Date: 2026-06-01
+Payment due: 2026-07-01
+From: Kestrel Studio
+Bill To: Northwind Labs
+Currency: EUR
+
+Description | Qty | Unit Price | Amount
+Logo redesign | 1 | 800.00 | 800.00
+
+Total: 800.00

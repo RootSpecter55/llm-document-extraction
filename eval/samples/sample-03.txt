@@ -1,0 +1,13 @@
+Cascade Cloud Hosting Inc. - Invoice
+Invoice #: 7781
+Date: March 3, 2026
+Seller: Cascade Cloud Hosting Inc.
+Bill To: Northwind Labs
+
+Service | Qty | Rate | Amount
+Managed database (monthly) | 1 | $1,250.00 | $1,250.00
+Backup storage (TB) | 4 | $25.00 | $100.00
+
+Subtotal: $1,350.00
+Tax: $0.00
+Total Due: $1,350.00
